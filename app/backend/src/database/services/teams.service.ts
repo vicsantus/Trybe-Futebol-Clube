@@ -82,6 +82,13 @@ class TeamsService {
     return users;
   }
 
+  public async getById(id: string): Promise<ITeams | { message: string }> {
+    console.log(this.model);
+    const users: ITeams | null = await TeamsModel.findByPk(id);
+    if (!users) return { message: 'Time não encontrado' };
+    return users;
+  }
+
   // public async login(login: ITeams) {
   //   const { username: usernameFromLogin, password: passwordFromLogin } = login;
   //   if (!usernameFromLogin) return { status: 400, message: { message: '"username" is required' } };

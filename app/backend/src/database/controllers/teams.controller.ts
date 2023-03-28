@@ -18,6 +18,12 @@ class UserController {
     res.status(statusCodes.ok).json(users);
   };
 
+  public getById = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const users = await this.userService.getById(id);
+    res.status(statusCodes.ok).json(users);
+  };
+
   // public login = async (
   //   req: Request<object, object, ITeams>,
   //   res: Response,
