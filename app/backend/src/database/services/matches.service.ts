@@ -148,6 +148,22 @@ class MatchesService {
     return { type: 200, message: { message: 'Finished' } };
   }
 
+  public static async create(match: IMatchesBD): Promise<object> {
+    const homeTeam = await TeamsModel.findByPk(match.homeTeamId);
+    const awayTeam = await TeamsModel.findByPk(match.awayTeamId);
+    if (!homeTeam || !awayTeam) {
+      return { type: 404, message: 'There is no team with such id!' };
+    }
+    const teamCreated = await MatchesModel.create({
+      homeTeamId: match.homeTeamId,
+      awayTeamId: match.awayTeamId,
+      homeTeamGoals: match.homeTeamGoals,
+      awayTeamGoals: match.awayTeamGoals,
+      inProgress: true });
+
+    return { type: 201, message: teamCreated };
+  }
+
   // public async getById(id: string): Promise<IMatchesBD | { message: string }> {
   //   console.log(this.model);
   //   const users: IMatchesBD | null = await MatchesModel.findByPk(id);

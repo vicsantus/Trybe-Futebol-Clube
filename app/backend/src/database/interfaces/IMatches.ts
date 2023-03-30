@@ -1,10 +1,10 @@
 export default interface IMatchesBD {
-  id: number,
+  id?: number,
   homeTeamId: number,
   homeTeamGoals: number,
   awayTeamId: number,
   awayTeamGoals: number,
-  inProgress: boolean,
+  inProgress?: boolean,
   homeTeam?: {
     teamName: string
   },
