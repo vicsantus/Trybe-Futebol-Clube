@@ -85,8 +85,30 @@ class MatchesService {
         { model: TeamsModel, as: 'awayTeam', attributes: ['teamName'] },
       ],
     });
-    // console.log(allMatches);
+    return allMatches;
+  }
 
+  public static async getAllProgTrue(): Promise<IMatchesBD[]> {
+    // console.log(this.model);
+    const allMatches: IMatchesBD[] = await MatchesModel.findAll({
+      include: [
+        { model: TeamsModel, as: 'homeTeam', attributes: ['teamName'] },
+        { model: TeamsModel, as: 'awayTeam', attributes: ['teamName'] },
+      ],
+      where: { inProgress: true },
+    });
+    return allMatches;
+  }
+
+  public static async getAllProgFalse(): Promise<IMatchesBD[]> {
+    // console.log(this.model);
+    const allMatches: IMatchesBD[] = await MatchesModel.findAll({
+      include: [
+        { model: TeamsModel, as: 'homeTeam', attributes: ['teamName'] },
+        { model: TeamsModel, as: 'awayTeam', attributes: ['teamName'] },
+      ],
+      where: { inProgress: false },
+    });
     return allMatches;
   }
 

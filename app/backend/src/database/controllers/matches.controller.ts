@@ -13,8 +13,12 @@ class MatchesController {
   //   res.status(statusCodes.CREATED).json(userCreated);
   // };
 
-  public getAll = async (_req: Request, res: Response) => {
-    const users = await MatchesService.getAll();
+  public getAll = async (req: Request, res: Response) => {
+    const { inProgress } = req.query;
+
+    let users = await MatchesService.getAll();
+    if (inProgress === 'true') users = await MatchesService.getAllProgTrue();
+    if (inProgress === 'false') users = await MatchesService.getAllProgFalse();
     res.status(statusCodes.ok).json(users);
   };
 
