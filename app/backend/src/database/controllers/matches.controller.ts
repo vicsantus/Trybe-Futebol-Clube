@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 // import ITeams from '../interfaces/ITeams';
-import TeamsService from '../services/teams.service';
+import MatchesService from '../services/matches.service';
 import statusCodes from '../statusCodes';
 
-class TeamsController {
-  constructor(private userService = new TeamsService()) { }
+class MatchesController {
+  constructor(private userService = new MatchesService()) { }
 
   // public create = async (req: Request, res: Response) => {
   //   const user = req.body;
@@ -14,15 +14,15 @@ class TeamsController {
   // };
 
   public getAll = async (_req: Request, res: Response) => {
-    const users = await this.userService.getAll();
+    const users = await MatchesService.getAll();
     res.status(statusCodes.ok).json(users);
   };
 
-  public getById = async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const users = await this.userService.getById(id);
-    res.status(statusCodes.ok).json(users);
-  };
+  // public getById = async (req: Request, res: Response) => {
+  //   const { id } = req.params;
+  //   const users = await this.userService.getById(id);
+  //   res.status(statusCodes.ok).json(users);
+  // };
 
   // public login = async (
   //   req: Request<object, object, ITeams>,
@@ -34,4 +34,4 @@ class TeamsController {
   // };
 }
 
-export default TeamsController;
+export default MatchesController;

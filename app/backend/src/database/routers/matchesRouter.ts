@@ -1,14 +1,14 @@
 import { Router } from 'express';
-import TeamsController from '../controllers/teams.controller';
+import MatchesController from '../controllers/matches.controller';
 
 // const userSlashId = '/users/:id';
 
 const router = Router();
 
-const teamsController = new TeamsController();
+const matchesController = new MatchesController();
 
-router.get('/teams', teamsController.getAll);
-router.get('/teams/:id', teamsController.getById);
+router.get('/matches', matchesController.getAll);
+// router.get('/teams/:id', userController.getById);
 
 // router.post('/users', userController.create);
 // router.put(booksSlashId, booksController.update);

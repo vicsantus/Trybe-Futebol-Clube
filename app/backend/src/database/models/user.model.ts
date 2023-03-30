@@ -45,26 +45,6 @@ UserModel.init({
   * Associations 1:N devem ficar em uma das instâncias de modelo
   * */
 
-// UserModel.belongsTo(MatchesModel, {
-//   foreignKey: { name: 'homeTeamId', field: 'home_team_id' },
-//   as: 'user',
-// });
-
-// MatchesModel.hasOne(UserModel, { foreignKey: 'id', as: 'userMatchesHomeId' });
-// MatchesModel.hasOne(UserModel, { foreignKey: 'id', as: 'userMatchesAwayId' });
-// OtherModel.belongsTo(Example, { foreignKey: 'campoB', as: 'campoEstrangeiroB' });
-// UserModel.belongsToMany(
-//   MatchesModel,
-//   { foreignKey: { name: 'homeTeamId', field: 'home_team_id' },
-//     as: 'homeId',
-//     through: MatchesModel },
-// );
-// UserModel.belongsToMany(
-//   MatchesModel,
-//   { foreignKey: { name: 'homeTeamGoals', field: 'home_team_goals' },
-//     as: 'homeGoals',
-//     through: MatchesModel },
-// );
 // Example.hasMany(OtherModel, { foreignKey: 'campoC', as: 'campoEstrangeiroC' });
 // Example.hasMany(OtherModel, { foreignKey: 'campoD', as: 'campoEstrangeiroD' });
 

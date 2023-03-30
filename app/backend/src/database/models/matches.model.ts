@@ -1,6 +1,6 @@
 import { BOOLEAN, INTEGER, Model } from 'sequelize';
 import db from '.';
-import UserModel from './user.model';
+import TeamsModel from './teams.model';
 
 class MatchesModel extends Model {
   declare id: number;
@@ -41,7 +41,7 @@ MatchesModel.init({
 }, {
   underscored: true,
   sequelize: db,
-  modelName: 'teams',
+  modelName: 'matches',
   timestamps: false,
 });
 
@@ -50,12 +50,12 @@ MatchesModel.init({
   * Associations 1:N devem ficar em uma das instâncias de modelo
   * */
 
-UserModel.belongsTo(MatchesModel, { foreignKey: 'homeTeamId', as: 'matchesUserHomeId' });
-UserModel.belongsTo(MatchesModel, { foreignKey: 'awayTeamId', as: 'matchesUserAwayId' });
+TeamsModel.hasMany(MatchesModel, { foreignKey: 'homeTeamId', as: 'homeTeam' });
+TeamsModel.hasMany(MatchesModel, { foreignKey: 'awayTeamId', as: 'awayTeam' });
 // OtherModel.belongsTo(Example, { foreignKey: 'campoB', as: 'campoEstrangeiroB' });
 
-MatchesModel.hasMany(UserModel, { foreignKey: 'id', as: 'userMatchesHomeId' });
-MatchesModel.hasMany(UserModel, { foreignKey: 'id', as: 'userMatchesAwayId' });
+MatchesModel.belongsTo(TeamsModel, { foreignKey: 'homeTeamId', as: 'homeTeam' });
+MatchesModel.belongsTo(TeamsModel, { foreignKey: 'awayTeamId', as: 'awayTeam' });
 // Example.hasMany(OtherModel, { foreignKey: 'campoD', as: 'campoEstrangeiroD' });
 
 export default MatchesModel;
