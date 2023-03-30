@@ -7,6 +7,7 @@ import IMatchesBD from '../interfaces/IMatches';
 // import connection from '../models/connection';
 import MatchesModel from '../models/matches.model';
 import TeamsModel from '../models/teams.model';
+import * as schema from './validations/validationsMatches';
 
 // dotenv.config();
 
@@ -110,6 +111,41 @@ class MatchesService {
       where: { inProgress: false },
     });
     return allMatches;
+  }
+
+  public static async finishPathById(id: string): Promise<object> {
+    // console.log(this.model);
+    const error = schema.validateId(id);
+    if (error.type) return error;
+
+    // const result: IMatchesBD | null = await MatchesModel.findOne({
+    //   where: { id },
+    // });
+    // if (!result) return { type: 401, message: 'Token must be a valid token' };
+    await MatchesModel.update(
+      { inProgress: false },
+      { where: { id } },
+    );
+
+    return { type: 200, message: { message: 'Finished' } };
+  }
+
+  public static async updateMatch(id: string, home: number, away: number): Promise<object> {
+    // console.log(this.model);
+    const error = schema.validateId(id);
+    if (error.type) return error;
+
+    // const result: IMatchesBD | null = await MatchesModel.findOne({
+    //   where: { id },
+    // });
+    // if (!result) return { type: 401, message: 'Token must be a valid token' };
+
+    await MatchesModel.update(
+      { homeTeamGoals: home, awayTeamGoals: away },
+      { where: { id } },
+    );
+
+    return { type: 200, message: { message: 'Finished' } };
   }
 
   // public async getById(id: string): Promise<IMatchesBD | { message: string }> {
