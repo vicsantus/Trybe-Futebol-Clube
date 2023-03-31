@@ -55,6 +55,12 @@ class MatchesController {
     return res.status(statusCodes.ok).json(leadboard);
   };
 
+  public getLeaderboardAway = async (_req: Request, res: Response) => {
+    const matchesProgFalse = await LeaderboardService.getAllProgFalse();
+    const leadboard = await LeaderboardService.awayLeaderboard(matchesProgFalse);
+    return res.status(statusCodes.ok).json(leadboard);
+  };
+
   // public getById = async (req: Request, res: Response) => {
   //   const { id } = req.params;
   //   const users = await this.userService.getById(id);

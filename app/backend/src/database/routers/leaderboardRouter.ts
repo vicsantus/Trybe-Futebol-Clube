@@ -9,6 +9,7 @@ const router = Router();
 const leadboardController = new LeaderboardController();
 
 router.get('/leaderboard/home', leadboardController.getLeaderboardHome);
+router.get('/leaderboard/away', leadboardController.getLeaderboardAway);
 // router.patch('/matches/:id/finish', validateJWT, leadboardController.finishPathById);
 // router.patch('/matches/:id', validateJWT, leadboardController.updateMatch);
 // router.post('/matches', validateJWT, leadboardController.create);
