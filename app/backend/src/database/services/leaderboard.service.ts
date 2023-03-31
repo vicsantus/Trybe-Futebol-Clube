@@ -1,4 +1,4 @@
-import { ILeaderboard } from '../interfaces/IMatches';
+import { ILeaderboard, ILeaderboardMaked } from '../interfaces/IMatches';
 
 import MatchesModel from '../models/matches.model';
 import TeamsModel from '../models/teams.model';
@@ -36,7 +36,6 @@ class LeaderboardService {
       ],
       where: { inProgress: false },
     }) as [];
-    console.log(allMatches);
 
     return allMatches;
   }
@@ -81,11 +80,11 @@ class LeaderboardService {
   //   return { type: 201, message: teamCreated };
   // }
 
-  public static makeFilterTeam(team: ILeaderboard, allProgTrue: ILeaderboard[]) {
+  private static makeFilterTeam(team: ILeaderboard, allProgTrue: ILeaderboard[]) {
     return allProgTrue.filter((t) => (t.homeTeamId === team.homeTeamId));
   }
 
-  public static makeTotalPoints(team: ILeaderboard, allProgTrue: ILeaderboard[]) {
+  private static makeTotalPoints(team: ILeaderboard, allProgTrue: ILeaderboard[]) {
     const leadFiltered = LeaderboardService.makeFilterTeam(team, allProgTrue);
     const total = leadFiltered
       .reduce((acc, cur) => {
@@ -96,60 +95,84 @@ class LeaderboardService {
     return total;
   }
 
-  public static makeTotalVictories(team: ILeaderboard, allProgTrue: ILeaderboard[]) {
+  private static makeTotalVictories(team: ILeaderboard, allProgTrue: ILeaderboard[]) {
     return allProgTrue.filter((t) => (t.homeTeamId === team.homeTeamId
       && t.homeTeamGoals > t.awayTeamGoals)).length;
   }
 
-  public static makeTotalDraws(team: ILeaderboard, allProgTrue: ILeaderboard[]) {
+  private static makeTotalDraws(team: ILeaderboard, allProgTrue: ILeaderboard[]) {
     const leadFiltered = LeaderboardService.makeFilterTeam(team, allProgTrue);
     return leadFiltered
       .filter((t) => t.homeTeamGoals === t.awayTeamGoals).length;
   }
 
-  public static makeTotalLosses(team: ILeaderboard, allProgTrue: ILeaderboard[]) {
+  private static makeTotalLosses(team: ILeaderboard, allProgTrue: ILeaderboard[]) {
     const leadFiltered = LeaderboardService.makeFilterTeam(team, allProgTrue);
     return leadFiltered
       .filter((t) => t.homeTeamGoals < t.awayTeamGoals).length;
   }
 
-  public static makeGoalsFavor(team: ILeaderboard, allProgTrue: ILeaderboard[]) {
+  private static makeGoalsFavor(team: ILeaderboard, allProgTrue: ILeaderboard[]) {
     const leadFiltered = LeaderboardService.makeFilterTeam(team, allProgTrue);
     return leadFiltered
       .reduce((acc, cur) => cur.homeTeamGoals + acc, 0);
   }
 
-  public static makeGoalsOwn(team: ILeaderboard, allProgTrue: ILeaderboard[]) {
+  private static makeGoalsOwn(team: ILeaderboard, allProgTrue: ILeaderboard[]) {
     const leadFiltered = LeaderboardService.makeFilterTeam(team, allProgTrue);
     return leadFiltered
       .reduce((acc, cur) => cur.awayTeamGoals + acc, 0);
   }
 
-  public static makeGoalsBalance(team: ILeaderboard, allProgTrue: ILeaderboard[]) {
+  private static makeGoalsBalance(team: ILeaderboard, allProgTrue: ILeaderboard[]) {
     const goalFavor = LeaderboardService.makeGoalsFavor(team, allProgTrue);
     const goalsOwn = LeaderboardService.makeGoalsOwn(team, allProgTrue);
     return goalFavor - goalsOwn;
   }
 
-  public static makeEfficiency(team: ILeaderboard, allProgTrue: ILeaderboard[]) {
+  private static makeEfficiency(team: ILeaderboard, allProgTrue: ILeaderboard[]) {
     const totalPt = LeaderboardService.makeTotalPoints(team, allProgTrue);
     const filterTeam = LeaderboardService.makeFilterTeam(team, allProgTrue);
     return Number(((totalPt / (filterTeam.length * 3)) * 100).toFixed(2));
   }
 
-  public static makeTotalGames(team: ILeaderboard, allProgTrue: ILeaderboard[]) {
+  private static makeTotalGames(team: ILeaderboard, allProgTrue: ILeaderboard[]) {
     const filterTeam = LeaderboardService.makeFilterTeam(team, allProgTrue);
     return filterTeam.length;
   }
 
-  // public static resolveAllPromises(unresolved: Array<object>) {
-  //   const newArray: Array<ILeaderboard> = [];
-  //   Promise.all(unresolved).then((ele) => newArray.push(ele));
-  //   return newArray;
-  // }
+  private static sortByPoints(leadboard: ILeaderboardMaked[]) {
+    const sorted = leadboard.sort((a, b) => {
+      if (a.totalPoints > b.totalPoints) return -1;
+      if (a.totalPoints < b.totalPoints) return 1;
+      return 0;
+    });
+    return sorted;
+  }
 
-  public static async homeLeaderboard(leadboard: ILeaderboard[]) {
-    const newLeaderboard = leadboard.map((team) => ({
+  private static sortLeaderboard(leadboard: ILeaderboardMaked[]) {
+    return leadboard.sort((a, b) => {
+      if (a.totalPoints !== b.totalPoints) return 0;
+      if (a.totalVictories > b.totalVictories) return -1;
+      if (a.totalVictories < b.totalVictories) return 1;
+      return 0;
+    }).sort((a, b) => {
+      if (a.totalPoints !== b.totalPoints) return 0;
+      if (a.totalVictories !== b.totalVictories) return 0;
+      if (a.goalsBalance > b.goalsBalance) return -1;
+      if (a.goalsBalance < b.goalsBalance) return 1;
+      return 0;
+    }).sort((a, b) => {
+      if (a.totalVictories !== b.totalVictories) return 0;
+      if (a.goalsBalance !== b.goalsBalance || a.totalPoints !== b.totalPoints) return 0;
+      if (a.goalsFavor > b.goalsFavor) return -1;
+      if (a.goalsFavor < b.goalsFavor) return 1;
+      return 0;
+    });
+  }
+
+  private static makeLeadboard(leadboard: ILeaderboard[]) {
+    return leadboard.map((team) => ({
       name: team.homeTeam.teamName,
       totalPoints: LeaderboardService.makeTotalPoints(team, leadboard),
       totalGames: LeaderboardService.makeTotalGames(team, leadboard),
@@ -161,12 +184,19 @@ class LeaderboardService {
       goalsBalance: LeaderboardService.makeGoalsBalance(team, leadboard),
       efficiency: LeaderboardService.makeEfficiency(team, leadboard),
     }));
+  }
+
+  public static async homeLeaderboard(leadboard: ILeaderboard[]) {
+    const newLeaderboard = LeaderboardService.makeLeadboard(leadboard);
 
     const reducedLeaderboard = newLeaderboard.reduce((acc: Array<{ name: string }>, cur) => {
       if (!acc.some((ele) => ele.name === cur.name)) return [...acc, cur];
       return acc;
-    }, []);
-    return reducedLeaderboard;
+    }, []) as ILeaderboardMaked[];
+
+    const sortedLeadboard = LeaderboardService
+      .sortLeaderboard(LeaderboardService.sortByPoints(reducedLeaderboard));
+    return sortedLeadboard;
   }
 }
 
