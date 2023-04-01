@@ -128,7 +128,7 @@ class LeaderboardService {
     return filterTeam.length;
   }
 
-  private static sortByPoints(leadboard: ILeaderboardMaked[]) {
+  protected static sortByPoints(leadboard: ILeaderboardMaked[]) {
     const sorted = leadboard.sort((a, b) => {
       if (a.totalPoints > b.totalPoints) return -1;
       if (a.totalPoints < b.totalPoints) return 1;
@@ -137,7 +137,7 @@ class LeaderboardService {
     return sorted;
   }
 
-  private static sortLeaderboard(leadboard: ILeaderboardMaked[]) {
+  protected static sortLeaderboard(leadboard: ILeaderboardMaked[]) {
     return leadboard.sort((a, b) => {
       if (a.totalPoints !== b.totalPoints) return 0;
       if (a.totalVictories > b.totalVictories) return -1;
