@@ -14,13 +14,13 @@ class TeamsController {
   // };
 
   public getAll = async (_req: Request, res: Response) => {
-    const users = await this.userService.getAll();
+    const users = await TeamsService.getAll();
     res.status(statusCodes.ok).json(users);
   };
 
   public getById = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const users = await this.userService.getById(id);
+    const users = await TeamsService.getById(id);
     res.status(statusCodes.ok).json(users);
   };
 
