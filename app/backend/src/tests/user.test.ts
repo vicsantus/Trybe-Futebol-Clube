@@ -154,8 +154,6 @@ describe('Verificando rota de users', () => {
       .auth(token, 'pass')
       .set('Authorization', `${token}`);
 
-      console.log(httpRespRole.header);
-
       expect(httpRespRole.status).to.equal(401);
       expect(httpRespRole.body).to.be.deep.equal({message: "Token must be a valid token"});
     });

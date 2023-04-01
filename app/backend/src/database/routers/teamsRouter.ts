@@ -10,9 +10,4 @@ const teamsController = new TeamsController();
 router.get('/teams', teamsController.getAll);
 router.get('/teams/:id', teamsController.getById);
 
-// router.post('/users', userController.create);
-// router.put(booksSlashId, booksController.update);
-// router.delete(booksSlashId, booksController.remove);
-// router.post('/login', userController.login);
-
 export default router;
