@@ -13,8 +13,8 @@ dotenv.config();
 //   expiresIn: '15m',
 // };
 class UserController {
-  isBodyValid = (username: string, password: string) => username && password;
-  constructor(private userService = new UserService()) { }
+  // isBodyValid = (username: string, password: string) => username && password;
+  // constructor(private userService = new UserService()) { }
 
   // public create = async (req: Request, res: Response) => {
   //   const user = req.body;

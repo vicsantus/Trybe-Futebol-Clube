@@ -18,43 +18,43 @@ const JWT_CONFIG: SignOptions = {
   expiresIn: '60m',
 };
 
-const properties = ['email'];
+// const properties = ['email'];
 
 class UserService {
-  public model: UserModel = new UserModel();
+  // public model: UserModel = new UserModel();
 
-  static validateProperties(user: IUser): [boolean, string | null] {
-    for (let i = 0; i < properties.length; i += 1) {
-      if (!Object.prototype.hasOwnProperty.call(user, properties[i])) {
-        return [false, properties[i]];
-      }
-    }
-    return [true, null];
-  }
+  // static validateProperties(user: IUser): [boolean, string | null] {
+  //   for (let i = 0; i < properties.length; i += 1) {
+  //     if (!Object.prototype.hasOwnProperty.call(user, properties[i])) {
+  //       return [false, properties[i]];
+  //     }
+  //   }
+  //   return [true, null];
+  // }
 
-  static validateValues(user: IUser): [boolean, string | null] {
-    const entries = Object.entries(user);
-    for (let i = 0; i < entries.length; i += 1) {
-      const [property, value] = entries[i];
-      if (!value) {
-        return [false, property];
-      }
-    }
-    return [true, null];
-  }
+  // static validateValues(user: IUser): [boolean, string | null] {
+  //   const entries = Object.entries(user);
+  //   for (let i = 0; i < entries.length; i += 1) {
+  //     const [property, value] = entries[i];
+  //     if (!value) {
+  //       return [false, property];
+  //     }
+  //   }
+  //   return [true, null];
+  // }
 
-  static validationUser(user: IUser): void | string {
-    let [valid, property] = UserService.validateProperties(user);
+  // static validationUser(user: IUser): void | string {
+  //   let [valid, property] = UserService.validateProperties(user);
 
-    if (!valid) {
-      return `O campo ${property} é obrigatório.`;
-    }
-    [valid, property] = UserService.validateValues(user);
+  //   if (!valid) {
+  //     return `O campo ${property} é obrigatório.`;
+  //   }
+  //   [valid, property] = UserService.validateValues(user);
 
-    if (!valid) {
-      return `O campo ${property} não pode ser nulo ou vazio.`;
-    }
-  }
+  //   if (!valid) {
+  //     return `O campo ${property} não pode ser nulo ou vazio.`;
+  //   }
+  // }
 
   static generateToken = (
     payload: IUser,

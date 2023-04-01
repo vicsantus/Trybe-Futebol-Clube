@@ -4,7 +4,7 @@ import TeamsService from '../services/teams.service';
 import statusCodes from '../statusCodes';
 
 class TeamsController {
-  constructor(private userService = new TeamsService()) { }
+  // constructor(private userService = new TeamsService()) { }
 
   // public create = async (req: Request, res: Response) => {
   //   const user = req.body;
