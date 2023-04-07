@@ -2,8 +2,6 @@ import { Router } from 'express';
 import validateJWT from '../auth/validateJWT';
 import MatchesController from '../controllers/matches.controller';
 
-// const userSlashId = '/users/:id';
-
 const router = Router();
 
 const matchesController = new MatchesController();

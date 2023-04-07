@@ -1,8 +1,6 @@
 import { Router } from 'express';
 import TeamsController from '../controllers/teams.controller';
 
-// const userSlashId = '/users/:id';
-
 const router = Router();
 
 const teamsController = new TeamsController();

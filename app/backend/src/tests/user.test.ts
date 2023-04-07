@@ -99,7 +99,6 @@ describe('Verificando rota de users', () => {
       sinon.stub(schema, 'validateLogin').returns({type: null, message: ''});
       sinon.stub(Model, 'findOne').resolves(userAdmin as UserModel);
       sinon.stub(bcrypt, 'compareSync').returns(false);
-      // sinon.stub(UserService, 'generateToken').resolves('QWERTQWERTQWERTtokenEnormeQWERTQWERTQWERT');
 
       // act
       const result = await UserService.login(userAdmin) as {type: number, message: object};
@@ -118,7 +117,6 @@ describe('Verificando rota de users', () => {
       sinon.stub(schema, 'validateLogin').returns({type: null, message: ''});
       sinon.stub(Model, 'findOne').resolves(null);
       sinon.stub(bcrypt, 'compareSync').resolves(true);
-      // sinon.stub(UserService, 'generateToken').resolves('QWERTQWERTQWERTtokenEnormeQWERTQWERTQWERT');
 
       // act
       const result = await UserService.login(userAdmin) as {type: number, message: object};
@@ -157,19 +155,5 @@ describe('Verificando rota de users', () => {
       expect(httpRespRole.status).to.equal(401);
       expect(httpRespRole.body).to.be.deep.equal({message: "Token must be a valid token"});
     });
-
-    // it('retorna um id da lista de users', async function () {
-    //   // arrange
-    //   sinon.stub(UserService, 'getById').resolves(userAdmin[0]);
-
-    //   // act
-    //   const httpResponse = await chai
-    //     .request(app)
-    //     .get('/teams/1')
-
-    //   // assert
-    //   expect(httpResponse.status).to.equal(200);
-    //   expect(httpResponse.body).to.deep.equal(userAdmin[0]);
-    // });
   });
 });

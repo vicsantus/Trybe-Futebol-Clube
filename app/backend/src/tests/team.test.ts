@@ -7,8 +7,6 @@ import { app } from '../app';
 import TeamsModel from '../database/models/teams.model';
 import TeamsService from '../database/services/teams.service';
 
-// import { Response } from 'superagent';
-
 import { Model } from 'sequelize';
 import { allProducts } from './mocks/team.mock';
 

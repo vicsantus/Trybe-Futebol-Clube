@@ -1,10 +1,6 @@
 import { ILeaderboardMaked } from '../interfaces/IMatches';
 import LeaderboardService from './leaderboard.service';
 
-// import * as schema from './validations/validationsMatches';
-
-// import leadTest from './lead';
-
 class LeaderboardPrincipalService extends LeaderboardService {
   private static principalTotalPoints(team: ILeaderboardMaked, ldb: ILeaderboardMaked[]) {
     return ldb.reduce((acc, cur) => (cur.name === team.name
@@ -77,12 +73,5 @@ class LeaderboardPrincipalService extends LeaderboardService {
       .sortLeaderboard(LeaderboardService.sortByPoints(newLeaderboard));
   }
 }
-
-// [P / (J * 3)] * 100, onde:
-
-//     P: Total de Pontos;
-//     J: Total de Jogos.
-
-// console.log(LeaderboardService.homeLeaderboard(leadTest));
 
 export default LeaderboardPrincipalService;

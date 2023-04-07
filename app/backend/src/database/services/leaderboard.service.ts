@@ -2,9 +2,6 @@ import { ILeaderboard, ILeaderboardMaked } from '../interfaces/IMatches';
 
 import MatchesModel from '../models/matches.model';
 import TeamsModel from '../models/teams.model';
-// import * as schema from './validations/validationsMatches';
-
-// import leadTest from './lead';
 
 class LeaderboardService {
   public static async getAllProgFalse(): Promise<ILeaderboard[]> {
@@ -199,7 +196,5 @@ class LeaderboardService {
     return sortedLeadboard;
   }
 }
-
-// console.log(LeaderboardService.homeLeaderboard(leadTest));
 
 export default LeaderboardService;

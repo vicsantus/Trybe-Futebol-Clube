@@ -1,8 +1,5 @@
 import { Router } from 'express';
-// import validateJWT from '../auth/validateJWT';
 import LeaderboardController from '../controllers/leaderboard.controller';
-
-// const userSlashId = '/users/:id';
 
 const router = Router();
 
