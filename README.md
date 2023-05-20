@@ -6,6 +6,8 @@ Trybe Futebol Clube é um projeto feito para acessar o placar de times de futebo
 
 ## Link da aplicação funcionando no Railway
 
+O **usuario e senha** ficam dentro da pasta **/app/backend/src/database/seeders/\*-user.js.** Trata-se dos seeders da tabela users que alimentam um banco de dados em um container do docker. Dentro do seeders você verá o email e senha, porém, as senhas estão criptografadas. Contudo existe um comentário abaixo delas com a senha real descriptografada. **Ao realizar o login, use o email e senha descriptografada.**
+
 https://tfc-frontend-app-production.up.railway.app/login
 
 ## Instalação
@@ -21,8 +23,6 @@ Instalação do projeto
 
 Após a instalação você pode entrar no seu navegador em **`localhost:3000`**, e dali usar as funcionalidades da página.
 Para eliminar os containers após o uso, rode `npm run compose:down`.
-
-O **usuario e senha** ficam dentro da pasta **/app/backend/src/database/seeders/\*-user.js.** Trata-se dos seeders da tabela users que alimentam um banco de dados em um container do docker. Dentro do seeders você verá o email e senha, porém, as senhas estão criptografadas. Contudo existe um comentário abaixo delas com a senha real descriptografada. **Ao realizar o login, use o email e senha descriptografada.**
 
 ## Funcionalidades
 
