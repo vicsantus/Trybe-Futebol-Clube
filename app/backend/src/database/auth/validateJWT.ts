@@ -5,7 +5,6 @@ import UserService from '../services/user.service';
 
 dotenv.config();
 
-// teste
 const secret = process.env.JWT_SECRET || 'secretJWT';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
